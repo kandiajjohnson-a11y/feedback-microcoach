@@ -310,38 +310,20 @@
 
   function buildOnePager(raw) {
     const inner = raw.replace('---ONE-PAGER---','').replace('---END ONE-PAGER---','').trim();
-    const lines = inner.split('\n');
-    const sections = ['OPENING (30-SECOND RULE)', 'OPENING', 'MAIN MESSAGE', 'CLOSING', 'ABOUT THIS SCRIPT', 'BEFORE YOU START', 'DURING THE CONVERSATION', 'IF THINGS GET DIFFICULT'];
     let html = `<div class="op-header"><span class="op-badge">One-Pager</span><span class="op-title">Your Conversation Plan</span></div>`;
-    let cur = null, body = [];
-
-    function flush() {
-      if (!cur) return;
-      const isCheck = body.some(l => l.trim().startsWith('☐'));
-      html += `<div class="op-section"><div class="op-label">${cur}</div>`;
-      if (isCheck) {
-        html += '<ul class="checklist">';
-        body.forEach(l => { if(l.trim().startsWith('☐')) html += `<li><span class="check-box"></span>${l.replace('☐','').trim()}</li>`; });
-        html += '</ul>';
-      } else {
-        const bodyText = body.join('<br>').replace(/\[DIFFUSER[^\]]*\]/g, match => `<span class="diffuser">${match}</span>`);
-        html += `<div class="op-body">${fmt(bodyText)}</div>`;
-      }
-      html += '</div>';
-    }
-
+    const lines = inner.split('\n');
     lines.forEach(line => {
       const t = line.trim();
-      const match = sections.find(s => t.toUpperCase().startsWith(s.toUpperCase() + ':') || t.toUpperCase() === s.toUpperCase());
-      if (match) {
-        flush(); cur = match; body = [];
-        const after = t.substring(match.length + 1).trim();
-        if (after) body.push(after);
-      } else if (t && t !== '---ONE-PAGER---' && t !== '---END ONE-PAGER---') {
-        body.push(t);
+      if (!t) { html += '<br>'; return; }
+      const isSectionHeader = /^[A-Z][A-Z\s\(\)\-]+:/.test(t) || /^[A-Z][A-Z\s\(\)\-]{4,}$/.test(t);
+      if (isSectionHeader) {
+        html += `<div class="op-label" style="margin-top:12px">${t.replace(':','')}</div>`;
+      } else if (t.startsWith('☐')) {
+        html += `<div style="display:flex;gap:8px;align-items:flex-start;padding:2px 0;font-size:13px;color:var(--text-muted)"><span style="color:#C0392B;flex-shrink:0">☐</span>${t.replace('☐','').trim()}</div>`;
+      } else {
+        html += `<div class="op-body" style="margin:4px 0">${fmt(t)}</div>`;
       }
     });
-    flush();
     return html;
   }
 
