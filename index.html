@@ -378,7 +378,7 @@
       history.push({ role: 'assistant', content: reply });
       hideTyping();
       addMsg('assistant', reply, reply.includes('---ONE-PAGER---'));
-    } catch {
+    } catch(err) {
       hideTyping();
       addMsg('assistant', 'CATCH ERROR occurred.');
     }
