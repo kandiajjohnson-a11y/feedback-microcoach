@@ -109,7 +109,7 @@ exports.handler = async function(event, context) {
     const data = await response.json();
     const reply = (data.content && data.content[0] && data.content[0].text)
       ? data.content[0].text
-      : "API ERROR: " + JSON.stringify(data);
+      : "Something went wrong. Please try again.";
 
     return { statusCode: 200, headers, body: JSON.stringify({ reply }) };
 
