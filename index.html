@@ -374,13 +374,13 @@
         body: JSON.stringify({ messages: history })
       });
       const data = await res.json();
-      const reply = data.reply || 'Something went wrong. Please try again.';
+      const reply = data.reply || 'DEBUG: no reply field in response';
       history.push({ role: 'assistant', content: reply });
       hideTyping();
       addMsg('assistant', reply, reply.includes('---ONE-PAGER---'));
     } catch {
       hideTyping();
-      addMsg('assistant', 'Something went wrong. Please check your connection and try again.');
+      addMsg('assistant', 'CATCH ERROR occurred.');
     }
 
     busy = false; sendBtn.disabled = false;
