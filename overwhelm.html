@@ -401,13 +401,43 @@
       history.push({ role: 'assistant', content: reply });
       hideTyping();
       const isSummary = reply.includes('YOUR RESET SUMMARY');
+      const isActionPlan = reply.includes('Win Before 10') && reply.includes('POWER 90');
       addMsg('assistant', reply, isSummary);
+      if (isActionPlan || isSummary) addCopyButton(reply);
     } catch(err) {
       hideTyping();
       addMsg('assistant', 'Something went wrong. Please try again.');
     }
 
     busy = false; sendBtn.disabled = false;
+  }
+
+  function addCopyButton(text) {
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'padding-left:42px;margin-top:-8px;';
+    wrap.innerHTML = `
+      <button onclick="copyReset(this)" style="
+        background:none;border:1px solid #0f7b6c;color:#0f7b6c;
+        border-radius:20px;padding:7px 16px;font-size:12px;
+        font-family:inherit;cursor:pointer;display:flex;align-items:center;gap:6px;
+        transition:all 0.15s;">
+        📋 Copy my reset summary
+      </button>`;
+    chat.appendChild(wrap);
+    wrap.dataset.resetText = text;
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  function copyReset(btn) {
+    const text = btn.closest('div').dataset.resetText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓ Copied to clipboard!';
+      btn.style.background = '#e1f5ee';
+      setTimeout(() => {
+        btn.innerHTML = '📋 Copy my reset summary';
+        btn.style.background = 'none';
+      }, 3000);
+    });
   }
 
   function showBreatheModal() {
@@ -520,11 +550,26 @@
     init();
   }
 
-  function showGreeting() {
+  async function showGreeting() {
     document.querySelector('.input-bar').style.display = 'block';
-    const greeting = "Talk to me. What's happening right now? What's on your mind?\n\nDon't filter it — this is a judgment-free zone. Get it all out.";
-    addMsg('assistant', greeting);
-    history.push({ role: 'assistant', content: greeting });
+    showTyping();
+    try {
+      const res = await fetch('/.netlify/functions/overwhelm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: [] })
+      });
+      const data = await res.json();
+      const reply = data.reply || "Let's get everything out of your head. Tell me all the tasks, projects, deadlines, meetings, and anything else that's weighing on you right now. Don't organize it — just dump it all out.";
+      history.push({ role: 'assistant', content: reply });
+      hideTyping();
+      addMsg('assistant', reply);
+    } catch(err) {
+      hideTyping();
+      const fallback = "Let's get everything out of your head. Tell me all the tasks, projects, deadlines, meetings, and anything else that's weighing on you right now. Don't organize it — just dump it all out.";
+      addMsg('assistant', fallback);
+      history.push({ role: 'assistant', content: fallback });
+    }
   }
 
   function init() {
