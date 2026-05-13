@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Overwhelm Reset | Kandid Conversations</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red: #C0392B;
+      --red-dark: #962d22;
+      --red-light: #fdf1f0;
+      --teal: #0f7b6c;
+      --text: #1a1a1a;
+      --text-muted: #6b6b6b;
+      --text-light: #999;
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --border: #e8e4df;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-left { display: flex; align-items: center; gap: 12px; }
+
+    .logo-mark {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px; color: #fff;
+    }
+
+    .header-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.2; }
+    .header-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+
+    .nav-link {
+      font-size: 13px; color: var(--text-muted);
+      background: none; border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 20px;
+      cursor: pointer; text-decoration: none;
+      transition: all 0.15s; font-family: 'DM Sans', sans-serif;
+    }
+    .nav-link:hover { border-color: var(--teal); color: var(--teal); }
+
+    .reset-btn {
+      font-size: 13px; color: var(--text-muted);
+      background: none; border: 1px solid var(--border);
+      padding: 6px 14px; border-radius: 20px;
+      cursor: pointer; transition: all 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .reset-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+    main {
+      flex: 1;
+      max-width: 720px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem 1.25rem 120px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .breathe-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .breathe-left { display: flex; align-items: center; gap: 10px; }
+    .breathe-icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .breathe-label { font-size: 13px; font-weight: 500; color: var(--text); }
+    .breathe-sub { font-size: 11px; color: var(--text-muted); }
+    .breathe-btn {
+      font-size: 12px; color: var(--teal);
+      background: none; border: 1px solid var(--teal);
+      padding: 6px 14px; border-radius: 20px;
+      cursor: pointer; white-space: nowrap;
+      font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+    .breathe-btn:hover { background: #e1f5ee; }
+
+    .breathe-modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    .breathe-modal h3 { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+    .breathe-modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+    .breath-circle-wrap { position: relative; width: 120px; height: 120px; margin: 0 auto 16px; }
+    .breath-circle {
+      width: 120px; height: 120px; border-radius: 50%;
+      border: 3px solid var(--teal);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.5s ease;
+    }
+    .breath-inner {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: #e1f5ee;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+    }
+    .breath-phase { font-size: 11px; font-weight: 500; color: var(--teal); }
+    .breath-count { font-size: 22px; font-weight: 600; color: var(--teal); line-height: 1; }
+    .breath-instruction { font-size: 14px; color: var(--text-muted); margin-bottom: 16px; min-height: 20px; }
+    .breath-rounds { font-size: 12px; color: var(--text-light); margin-bottom: 16px; }
+    .breath-start {
+      background: var(--teal); color: #fff;
+      border: none; border-radius: 24px;
+      padding: 10px 28px; font-size: 14px; font-weight: 500;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: opacity 0.15s;
+    }
+    .breath-start:hover { opacity: 0.88; }
+    .breath-skip {
+      display: block; margin: 10px auto 0;
+      font-size: 12px; color: var(--text-light);
+      background: none; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: underline;
+    }
+
+    .msg { display: flex; gap: 10px; align-items: flex-start; animation: fadeUp 0.25s ease; }
+    .msg.user { flex-direction: row-reverse; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600; flex-shrink: 0; margin-top: 2px;
+    }
+    .avatar.ck { background: var(--teal); color: #fff; }
+    .avatar.you { background: #f0ece8; color: var(--text-muted); border: 0.5px solid var(--border); }
+
+    .bubble {
+      max-width: 82%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .bubble.ck {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px 16px 16px 16px;
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+    .bubble.you {
+      background: var(--teal);
+      color: #fff;
+      border-radius: 16px 4px 16px 16px;
+    }
+
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--teal);
+      border-radius: 4px 16px 16px 16px;
+      padding: 18px 20px;
+      max-width: 88%;
+      box-shadow: var(--shadow);
+    }
+    .summary-card h4 {
+      font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .summary-section { margin-bottom: 10px; }
+    .summary-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+    .summary-body { font-size: 13px; line-height: 1.6; color: var(--text); }
+    .summary-close {
+      font-size: 12px; color: var(--teal); font-style: italic;
+      margin-top: 12px; padding-top: 10px;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .typing-bubble {
+      display: flex; align-items: center; gap: 4px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px 16px 16px 16px;
+      box-shadow: var(--shadow);
+    }
+    .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--text-light);
+      animation: pulse 1.3s infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; }
+    .dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse { 0%,60%,100%{opacity:0.3;transform:scale(1)} 30%{opacity:1;transform:scale(1.3)} }
+
+    .input-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 14px 1.25rem 20px;
+    }
+    .input-inner {
+      max-width: 720px; margin: 0 auto;
+      display: flex; gap: 10px; align-items: flex-end;
+    }
+    textarea {
+      flex: 1;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 11px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 24px;
+      resize: none;
+      min-height: 46px;
+      max-height: 130px;
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    textarea:focus { border-color: var(--teal); }
+    textarea::placeholder { color: var(--text-light); }
+
+    .send {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--teal); border: none;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .send:hover { background: #0a6459; }
+    .send:active { transform: scale(0.94); }
+    .send:disabled { background: #ddd; cursor: not-allowed; }
+    .send svg { width: 18px; height: 18px; fill: #fff; }
+
+    .hint { text-align: center; font-size: 11px; color: var(--text-light); margin-top: 8px; }
+
+    @media (max-width: 600px) {
+      .bubble { max-width: 94%; font-size: 14px; }
+      header { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <div class="logo-mark">K</div>
+    <div>
+      <div class="header-title">Overwhelm Reset</div>
+      <div class="header-sub">Kandid Conversations</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="/" class="nav-link">Feedback Coach</a>
+    <button class="reset-btn" onclick="resetChat()">Start over</button>
+  </div>
+</header>
+
+<main id="chat"></main>
+
+<div class="input-bar">
+  <div class="input-inner">
+    <textarea id="input" placeholder="Type here — this is a judgment-free zone..." rows="1"></textarea>
+    <button class="send" id="sendBtn" onclick="send()">
+      <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </div>
+  <p class="hint">Press Enter to send &nbsp;·&nbsp; Shift+Enter for new line</p>
+</div>
+
+<script>
+  let history = [];
+  let busy = false;
+  let breatheShown = false;
+
+  const chat = document.getElementById('chat');
+  const input = document.getElementById('input');
+  const sendBtn = document.getElementById('sendBtn');
+
+  function addMsg(role, text, isSummary) {
+    const wrap = document.createElement('div');
+    wrap.className = `msg ${role === 'user' ? 'user' : ''}`;
+    const initials = role === 'user' ? 'You' : 'CK';
+    const avClass = role === 'user' ? 'you' : 'ck';
+
+    if (isSummary) {
+      wrap.innerHTML = `
+        <div class="avatar ck">CK</div>
+        <div class="summary-card">${buildSummary(text)}</div>`;
+    } else {
+      wrap.innerHTML = `
+        <div class="avatar ${avClass}">${initials}</div>
+        <div class="bubble ${role === 'user' ? 'you' : 'ck'}">${fmt(text)}</div>`;
+    }
+    chat.appendChild(wrap);
+    wrap.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+
+  function fmt(t) {
+    return t
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g,'<em>$1</em>')
+      .replace(/•\s/g,'<br>• ')
+      .replace(/\n/g,'<br>');
+  }
+
+  function buildSummary(text) {
+    const lines = text.split('\n').filter(l => l.trim());
+    let html = '<h4>Your Reset Summary</h4>';
+    lines.forEach(line => {
+      const t = line.trim();
+      if (!t || t.includes('YOUR RESET SUMMARY')) return;
+      if (t.includes(':') && t === t.toUpperCase().substring(0, t.indexOf(':') + 1) + t.substring(t.indexOf(':') + 1)) {
+        const parts = t.split(':');
+        html += `<div class="summary-section"><div class="summary-label">${parts[0]}</div><div class="summary-body">${parts.slice(1).join(':').trim()}</div></div>`;
+      } else if (t.startsWith('Remember:')) {
+        html += `<div class="summary-close">${t}</div>`;
+      } else {
+        html += `<div class="summary-body" style="margin-bottom:6px">${fmt(t)}</div>`;
+      }
+    });
+    return html;
+  }
+
+  function showTyping() {
+    const d = document.createElement('div');
+    d.className = 'msg'; d.id = 'typing';
+    d.innerHTML = `<div class="avatar ck">CK</div><div class="typing-bubble"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+    chat.appendChild(d);
+    d.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+  function hideTyping() { document.getElementById('typing')?.remove(); }
+
+  async function send() {
+    const text = input.value.trim();
+    if (!text || busy) return;
+
+    document.getElementById('breathe-banner')?.remove();
+    document.getElementById('breathe-modal')?.remove();
+
+    addMsg('user', text);
+    history.push({ role: 'user', content: text });
+    input.value = ''; input.style.height = 'auto';
+    busy = true; sendBtn.disabled = true;
+    showTyping();
+
+    try {
+      const res = await fetch('/.netlify/functions/overwhelm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history })
+      });
+      const data = await res.json();
+      const reply = data.reply || 'Something went wrong. Please try again.';
+      history.push({ role: 'assistant', content: reply });
+      hideTyping();
+      const isSummary = reply.includes('YOUR RESET SUMMARY');
+      addMsg('assistant', reply, isSummary);
+    } catch(err) {
+      hideTyping();
+      addMsg('assistant', 'Something went wrong. Please try again.');
+    }
+
+    busy = false; sendBtn.disabled = false;
+  }
+
+  function showBreatheModal() {
+    document.getElementById('breathe-banner')?.remove();
+    const modal = document.createElement('div');
+    modal.id = 'breathe-modal';
+    modal.className = 'breathe-modal';
+    modal.innerHTML = `
+      <h3>4-7-8 Breathing</h3>
+      <p>Inhale for 4 · Hold for 7 · Exhale for 8</p>
+      <div class="breath-circle-wrap">
+        <div class="breath-circle" id="bCircle">
+          <div class="breath-inner">
+            <div class="breath-phase" id="bPhase">Ready</div>
+            <div class="breath-count" id="bCount">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="breath-instruction" id="bInstruction">When you're ready, press start</div>
+      <div class="breath-rounds" id="bRounds">3 rounds</div>
+      <button class="breath-start" id="bStart" onclick="startBreath()">Start breathing</button>
+      <button class="breath-skip" onclick="skipBreathe()">Skip — go straight to the reset</button>`;
+    chat.insertBefore(modal, chat.firstChild);
+    modal.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function skipBreathe() {
+    document.getElementById('breathe-modal')?.remove();
+    document.getElementById('breathe-banner')?.remove();
+  }
+
+  function openAudio() {
+    document.getElementById('breathe-banner')?.remove();
+    const audioCard = document.createElement('div');
+    audioCard.id = 'audio-card';
+    audioCard.style.cssText = 'background:#fff;border:1px solid #e8e4df;border-left:3px solid #0f7b6c;border-radius:12px;padding:16px;margin-bottom:4px;';
+    audioCard.innerHTML = `
+      <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Guided Audio — Coach K</div>
+      <div style="font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:4px">Overwhelm Reset (8 min)</div>
+      <div style="font-size:12px;color:#6b6b6b;margin-bottom:12px">Listen first, then we'll work through your reset together.</div>
+      <a href="https://share.descript.com/view/jLaZjXreqkV" target="_blank" style="display:inline-block;background:#0f7b6c;color:#fff;border-radius:20px;padding:8px 20px;font-size:13px;font-weight:500;text-decoration:none;">🎧 Open audio track</a>
+      <button onclick="document.getElementById('audio-card').remove()" style="display:block;margin-top:10px;font-size:12px;color:#999;background:none;border:none;cursor:pointer;font-family:inherit;text-decoration:underline;">Done listening — continue to reset</button>`;
+    chat.insertBefore(audioCard, chat.firstChild);
+    audioCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  let breathInterval = null;
+
+  function startBreath() {
+    document.getElementById('bStart').style.display = 'none';
+    const phases = [
+      { name: 'Inhale', duration: 4, instruction: 'Breathe in slowly...', scale: 1.15 },
+      { name: 'Hold', duration: 7, instruction: 'Hold...', scale: 1.15 },
+      { name: 'Exhale', duration: 8, instruction: 'Slowly breathe out...', scale: 1 }
+    ];
+    let round = 0, phaseIdx = 0, count = 0;
+    const totalRounds = 3;
+
+    const phaseEl = document.getElementById('bPhase');
+    const countEl = document.getElementById('bCount');
+    const instrEl = document.getElementById('bInstruction');
+    const roundsEl = document.getElementById('bRounds');
+    const circle = document.getElementById('bCircle');
+
+    function runPhase() {
+      if (round >= totalRounds) {
+        phaseEl.textContent = 'Done';
+        countEl.textContent = '✓';
+        instrEl.textContent = 'Well done. You\'re ready.';
+        roundsEl.textContent = '';
+        const btn = document.createElement('button');
+        btn.className = 'breath-start';
+        btn.textContent = 'Continue to reset';
+        btn.onclick = skipBreathe;
+        document.getElementById('breathe-modal').appendChild(btn);
+        return;
+      }
+
+      const phase = phases[phaseIdx];
+      count = phase.duration;
+      phaseEl.textContent = phase.name;
+      countEl.textContent = count;
+      instrEl.textContent = phase.instruction;
+      roundsEl.textContent = `Round ${round + 1} of ${totalRounds}`;
+      circle.style.transform = `scale(${phase.scale})`;
+
+      breathInterval = setInterval(() => {
+        count--;
+        countEl.textContent = count;
+        if (count <= 0) {
+          clearInterval(breathInterval);
+          phaseIdx++;
+          if (phaseIdx >= phases.length) { phaseIdx = 0; round++; }
+          setTimeout(runPhase, 300);
+        }
+      }, 1000);
+    }
+
+    runPhase();
+  }
+
+  function resetChat() {
+    history = [];
+    chat.innerHTML = '';
+    if (breathInterval) clearInterval(breathInterval);
+    init();
+  }
+
+  function init() {
+    const banner = document.createElement('div');
+    banner.id = 'breathe-banner';
+    banner.className = 'breathe-banner';
+    banner.style.flexDirection = 'column';
+    banner.style.alignItems = 'flex-start';
+    banner.style.gap = '10px';
+    banner.innerHTML = `
+      <div class="breathe-left">
+        <div class="breathe-icon">🌬</div>
+        <div>
+          <div class="breathe-label">Before we begin</div>
+          <div class="breathe-sub">Take a moment to regulate — choose what works for you</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;width:100%">
+        <button class="breathe-btn" onclick="showBreatheModal()" style="flex:1;min-width:120px">4-7-8 breathing</button>
+        <button class="breathe-btn" onclick="openAudio()" style="flex:1;min-width:120px">🎧 Guided audio (8 min)</button>
+        <button class="breathe-btn" onclick="skipBreathe()" style="flex:1;min-width:120px;border-color:#ddd;color:#999">Skip for now</button>
+      </div>`;
+    chat.appendChild(banner);
+
+    const greeting = "Talk to me. What's happening right now? What's on your mind?\n\nDon't filter it — this is a judgment-free zone. Get it all out.";
+    addMsg('assistant', greeting);
+    history.push({ role: 'assistant', content: greeting });
+  }
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+  input.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 130) + 'px';
+  });
+
+  init();
+</script>
+</body>
+</html>
