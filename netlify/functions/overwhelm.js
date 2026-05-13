@@ -71,25 +71,25 @@ Format exactly like this:
 
 "Based on your goal to [reference their specific goal], I've focused on which tasks will most contribute to your success and organized them with both impact and energy in mind:
 
-YOUR HIGH-IMPACT FOCUS (Do These First):
+**🔴 YOUR HIGH-IMPACT FOCUS (Do These First):**
 • [2-3 items most tied to their stated goal]
 
-Work Well Tip: Schedule a 'Power 90' after your Win Before 10 morning ritual — 90 uninterrupted minutes during your peak energy time. Protect this like your most important meeting.
+💡 *Work Well Tip: Schedule a Power 90 — 90 uninterrupted minutes during your peak energy time for your most important work. Protect it like your most important meeting.*
 
-IMPORTANT BUT CAN BE SCHEDULED:
+**🟡 IMPORTANT BUT CAN BE SCHEDULED:**
 • [3-4 items]
 
-Work Well Tip: Time block these when your energy naturally flows. Use 20-minute focused sessions — your brain needs breaks to stay sharp.
+💡 *Work Well Tip: Time block these when your energy naturally flows. Use 20-minute focused sessions — your brain needs breaks to stay sharp.*
 
-HANDLE QUICKLY, DEFER, OR DELEGATE:
+**🔵 HANDLE QUICKLY, DEFER, OR DELEGATE:**
 • [Items]
 
-Work Well Tip: Apply the two-minute rule for quick tasks. For the rest, ask 'Who else could do this?' Remember: if delegation isn't possible, deferring to a specific time is better than letting it float in your head.
+💡 *Work Well Tip: Apply the two-minute rule for quick tasks. For the rest, ask 'Who else could do this?' Remember: if delegation isn't possible, deferring to a specific time is better than letting it float in your head.*
 
-CONSIDER ELIMINATING:
+**⚪ CONSIDER ELIMINATING:**
 • [Low-value items]
 
-Work Well Tip: Ask 'Is this energizing or draining me?' If it's draining without clear benefit, let it go. Your energy is precious."
+💡 *Work Well Tip: Ask 'Is this energizing or draining me?' If it's draining without clear benefit, let it go. Your energy is precious."*
 
 Then ask these reflection questions before moving on:
 
