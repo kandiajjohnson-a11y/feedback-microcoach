@@ -446,10 +446,13 @@
     audioCard.style.cssText = 'background:#fff;border:1px solid #e8e4df;border-left:3px solid #0f7b6c;border-radius:12px;padding:16px;margin-bottom:4px;';
     audioCard.innerHTML = `
       <div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Guided Audio — Coach K</div>
-      <div style="font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:4px">Overwhelm Reset (8 min)</div>
+      <div style="font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:4px">In the Moment Reset — Overwhelm (8 min)</div>
       <div style="font-size:12px;color:#6b6b6b;margin-bottom:12px">Listen first, then we'll work through your reset together.</div>
-      <a href="https://share.descript.com/view/jLaZjXreqkV" target="_blank" style="display:inline-block;background:#0f7b6c;color:#fff;border-radius:20px;padding:8px 20px;font-size:13px;font-weight:500;text-decoration:none;">🎧 Open audio track</a>
-      <button onclick="document.getElementById('audio-card').remove()" style="display:block;margin-top:10px;font-size:12px;color:#999;background:none;border:none;cursor:pointer;font-family:inherit;text-decoration:underline;">Done listening — continue to reset</button>`;
+      <audio controls style="width:100%;margin-bottom:10px;border-radius:8px;accent-color:#0f7b6c;">
+        <source src="https://raw.githubusercontent.com/kandiajohnson-a11y/feedback-microcoach/main/In%20the%20Moment%20Reset_%20Overwhelm.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <button onclick="document.getElementById('audio-card').remove()" style="display:block;font-size:12px;color:#999;background:none;border:none;cursor:pointer;font-family:inherit;text-decoration:underline;">Done listening — continue to reset</button>`;
     chat.insertBefore(audioCard, chat.firstChild);
     audioCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
