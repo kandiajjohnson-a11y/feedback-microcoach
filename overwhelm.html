@@ -550,26 +550,11 @@
     init();
   }
 
-  async function showGreeting() {
+  function showGreeting() {
     document.querySelector('.input-bar').style.display = 'block';
-    showTyping();
-    try {
-      const res = await fetch('/.netlify/functions/overwhelm', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [] })
-      });
-      const data = await res.json();
-      const reply = data.reply || "Let's get everything out of your head. Tell me all the tasks, projects, deadlines, meetings, and anything else that's weighing on you right now. Don't organize it — just dump it all out.";
-      history.push({ role: 'assistant', content: reply });
-      hideTyping();
-      addMsg('assistant', reply);
-    } catch(err) {
-      hideTyping();
-      const fallback = "Let's get everything out of your head. Tell me all the tasks, projects, deadlines, meetings, and anything else that's weighing on you right now. Don't organize it — just dump it all out.";
-      addMsg('assistant', fallback);
-      history.push({ role: 'assistant', content: fallback });
-    }
+    const greeting = "Let's get everything out of your head. Tell me all the tasks, projects, deadlines, meetings, and anything else that's weighing on you right now.\n\nDon't organize it — just dump it all out.";
+    addMsg('assistant', greeting);
+    history.push({ role: 'assistant', content: greeting });
   }
 
   function init() {
