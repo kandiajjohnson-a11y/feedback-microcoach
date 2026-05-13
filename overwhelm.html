@@ -400,10 +400,13 @@
       const reply = data.reply || 'Something went wrong. Please try again.';
       history.push({ role: 'assistant', content: reply });
       hideTyping();
-      const isSummary = reply.includes('YOUR RESET SUMMARY');
+      const isSummary = reply.includes('YOUR RESET SUMMARY') || reply.includes('WELLNESS RESET SUMMARY');
       const isActionPlan = reply.includes('Win Before 10') && reply.includes('POWER 90');
       addMsg('assistant', reply, isSummary);
-      if (isActionPlan || isSummary) addCopyButton(reply);
+      if (isActionPlan || isSummary) {
+        document.getElementById('copy-btn-wrap')?.remove();
+        addCopyButton(reply);
+      }
     } catch(err) {
       hideTyping();
       addMsg('assistant', 'Something went wrong. Please try again.');
@@ -414,6 +417,7 @@
 
   function addCopyButton(text) {
     const wrap = document.createElement('div');
+    wrap.id = 'copy-btn-wrap';
     wrap.style.cssText = 'padding-left:42px;margin-top:-8px;';
     wrap.innerHTML = `
       <button onclick="copyReset(this)" style="
@@ -552,6 +556,13 @@
 
   function showGreeting() {
     document.querySelector('.input-bar').style.display = 'block';
+
+    // Add the collaborative note banner
+    const note = document.createElement('div');
+    note.style.cssText = 'background:#e1f5ee;border:1px solid #a8dfd4;border-radius:10px;padding:10px 14px;font-size:12px;color:#0a6459;line-height:1.5;margin-bottom:4px;';
+    note.innerHTML = '💬 <strong>This is a judgment-free space.</strong> If something gets missed along the way, just mention it and we'll work it in.';
+    chat.appendChild(note);
+
     const greeting = "Let's get everything out of your head. Tell me all the tasks, projects, deadlines, meetings, and anything else that's weighing on you right now.\n\nDon't organize it — just dump it all out.";
     addMsg('assistant', greeting);
     history.push({ role: 'assistant', content: greeting });
