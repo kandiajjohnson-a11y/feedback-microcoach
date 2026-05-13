@@ -521,12 +521,14 @@
   }
 
   function showGreeting() {
+    document.querySelector('.input-bar').style.display = 'block';
     const greeting = "Talk to me. What's happening right now? What's on your mind?\n\nDon't filter it — this is a judgment-free zone. Get it all out.";
     addMsg('assistant', greeting);
     history.push({ role: 'assistant', content: greeting });
   }
 
   function init() {
+    document.querySelector('.input-bar').style.display = 'none';
     const banner = document.createElement('div');
     banner.id = 'breathe-banner';
     banner.className = 'breathe-banner';
