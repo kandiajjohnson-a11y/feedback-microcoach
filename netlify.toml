@@ -1,7 +1,18 @@
 [build]
   functions = "netlify/functions"
-
+ 
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
+ 
+[[redirects]]
+  from = "/feedback"
+  to = "/index-feedback.html"
+  status = 200
+ 
+[[redirects]]
+  from = "/overwhelm"
+  to = "/overwhelm.html"
+  status = 200
+ 
