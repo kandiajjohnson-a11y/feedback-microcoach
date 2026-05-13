@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coach K | Kandid Conversations</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --red: #C0392B; --red-dark: #962d22; --red-light: #fdf1f0;
+      --teal: #0f7b6c; --teal-light: #f0faf6;
+      --text: #1a1a1a; --text-muted: #6b6b6b; --text-light: #999;
+      --bg: #faf9f7; --surface: #ffffff; --border: #e8e4df;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+    html, body { height: 100%; font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem; height: 64px; display: flex; align-items: center;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .logo-mark {
+      width: 36px; height: 36px; border-radius: 10px; background: var(--text);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 18px; color: #fff; margin-right: 12px;
+    }
+    .header-title { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.2; }
+    .header-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+    main { max-width: 560px; margin: 0 auto; padding: 2.5rem 1.25rem 3rem; }
+    .hero { text-align: center; padding: 2rem 1rem 2.5rem; }
+    .quote-mark { font-family: 'DM Serif Display', serif; font-size: 48px; color: var(--red); line-height: 0.5; display: block; margin-bottom: 1rem; }
+    .quote { font-family: 'DM Serif Display', serif; font-size: 20px; line-height: 1.6; color: var(--text); margin-bottom: 1rem; }
+    .tagline { font-size: 14px; color: var(--text-muted); letter-spacing: 0.02em; }
+    .divider { height: 0.5px; background: var(--border); margin: 0 0 2rem; }
+    .section-label { font-size: 11px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1rem; }
+    .moments { display: flex; flex-direction: column; gap: 12px; margin-bottom: 1.5rem; }
+    .moment-card {
+      display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+      border-radius: 16px; border: 0.5px solid transparent;
+      cursor: pointer; text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .moment-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .moment-card:active { transform: scale(0.98); }
+    .moment-card.overwhelm { background: var(--teal-light); border-color: #a8dfd4; }
+    .moment-card.feedback { background: var(--red-light); border-color: #f0c8c4; }
+    .moment-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
+    .overwhelm .moment-icon { background: var(--teal); }
+    .feedback .moment-icon { background: var(--red); }
+    .moment-body { flex: 1; }
+    .moment-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .moment-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
+    .moment-arrow { font-size: 22px; color: var(--text-light); flex-shrink: 0; }
+    .breathe-card {
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-left: 3px solid var(--teal); border-radius: 0 14px 14px 0;
+      padding: 18px 20px; margin-bottom: 1.5rem;
+    }
+    .breathe-belief { font-size: 13px; color: var(--teal); font-style: italic; line-height: 1.6; margin-bottom: 12px; }
+    .breathe-action { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .breathe-label { font-size: 14px; font-weight: 500; color: var(--text); }
+    .breathe-btn {
+      background: var(--teal); color: #fff; border: none; border-radius: 24px;
+      padding: 8px 20px; font-size: 13px; font-weight: 500; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; white-space: nowrap; transition: opacity 0.15s;
+    }
+    .breathe-btn:hover { opacity: 0.88; }
+    .breathe-modal {
+      background: var(--surface); border: 0.5px solid var(--border); border-radius: 16px;
+      padding: 28px 24px; text-align: center; box-shadow: var(--shadow);
+      margin-bottom: 1.5rem; display: none;
+    }
+    .breathe-modal.active { display: block; }
+    .breathe-modal h3 { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .breathe-modal p { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .breath-circle-wrap { width: 130px; height: 130px; margin: 0 auto 20px; }
+    .breath-circle {
+      width: 130px; height: 130px; border-radius: 50%; border: 3px solid var(--teal);
+      display: flex; align-items: center; justify-content: center; transition: transform 0.8s ease;
+    }
+    .breath-inner { width: 90px; height: 90px; border-radius: 50%; background: #e1f5ee; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .breath-phase { font-size: 11px; font-weight: 500; color: var(--teal); }
+    .breath-count { font-size: 26px; font-weight: 600; color: var(--teal); line-height: 1; }
+    .breath-instruction { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; min-height: 22px; }
+    .breath-rounds { font-size: 12px; color: var(--text-light); margin-bottom: 20px; }
+    .breath-start {
+      background: var(--teal); color: #fff; border: none; border-radius: 24px;
+      padding: 10px 28px; font-size: 14px; font-weight: 500; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; transition: opacity 0.15s; display: inline-block;
+    }
+    .breath-start:hover { opacity: 0.88; }
+    .breath-close {
+      display: block; margin: 12px auto 0; font-size: 12px; color: var(--text-light);
+      background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: underline;
+    }
+    .footer { text-align: center; font-size: 11px; color: var(--text-light); margin-top: 2rem; }
+    @media (max-width: 600px) {
+      .hero { padding: 1.5rem 0.5rem 2rem; }
+      .quote { font-size: 17px; }
+      main { padding: 1.5rem 1rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo-mark">K</div>
+  <div>
+    <div class="header-title">Coach K</div>
+    <div class="header-sub">Kandid Conversations</div>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <span class="quote-mark">"</span>
+    <div class="quote">The only moment you can ever control is the moment you're in right now.</div>
+    <div class="tagline">How can I support you today?</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">What's happening?</div>
+
+  <div class="moments">
+    <a href="/overwhelm" class="moment-card overwhelm">
+      <div class="moment-icon">🌊</div>
+      <div class="moment-body">
+        <div class="moment-title">I'm feeling overwhelmed</div>
+        <div class="moment-sub">Clear your head and reset your focus</div>
+      </div>
+      <div class="moment-arrow">›</div>
+    </a>
+
+    <a href="/feedback" class="moment-card feedback">
+      <div class="moment-icon">💬</div>
+      <div class="moment-body">
+        <div class="moment-title">I need to give feedback</div>
+        <div class="moment-sub">Prepare a difficult conversation</div>
+      </div>
+      <div class="moment-arrow">›</div>
+    </a>
+  </div>
+
+  <div class="breathe-card" id="breathe-card">
+    <div class="breathe-belief">When you change how you breathe,<br>you change how you feel.</div>
+    <div class="breathe-action">
+      <div class="breathe-label">Let's pause and breathe.</div>
+      <button class="breathe-btn" onclick="showBreathe()">Breathe with me</button>
+    </div>
+  </div>
+
+  <div class="breathe-modal" id="breathe-modal">
+    <h3>4-7-8 Breathing</h3>
+    <p>Inhale for 4 · Hold for 7 · Exhale for 8</p>
+    <div class="breath-circle-wrap">
+      <div class="breath-circle" id="bCircle">
+        <div class="breath-inner">
+          <div class="breath-phase" id="bPhase">Ready</div>
+          <div class="breath-count" id="bCount">—</div>
+        </div>
+      </div>
+    </div>
+    <div class="breath-instruction" id="bInstruction">When you're ready, press start</div>
+    <div class="breath-rounds" id="bRounds">3 rounds</div>
+    <button class="breath-start" id="bStart" onclick="startBreath()">Start breathing</button>
+    <button class="breath-close" onclick="closeBreathe()">Close</button>
+  </div>
+
+  <div class="footer">Powered by Coach K's frameworks · Kandid Conversations Global LLC</div>
+</main>
+
+<script>
+  function showBreathe() {
+    document.getElementById('breathe-card').style.display = 'none';
+    const modal = document.getElementById('breathe-modal');
+    modal.classList.add('active');
+    modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function closeBreathe() {
+    document.getElementById('breathe-modal').classList.remove('active');
+    document.getElementById('breathe-card').style.display = 'block';
+    if (breathInterval) clearInterval(breathInterval);
+    resetBreath();
+  }
+
+  function resetBreath() {
+    document.getElementById('bPhase').textContent = 'Ready';
+    document.getElementById('bCount').textContent = '—';
+    document.getElementById('bInstruction').textContent = "When you're ready, press start";
+    document.getElementById('bRounds').textContent = '3 rounds';
+    document.getElementById('bCircle').style.transform = 'scale(1)';
+    const btn = document.getElementById('bStart');
+    if (btn) { btn.textContent = 'Start breathing'; btn.onclick = startBreath; btn.style.display = 'inline-block'; }
+  }
+
+  let breathInterval = null;
+
+  function startBreath() {
+    document.getElementById('bStart').style.display = 'none';
+    const phases = [
+      { name: 'Inhale', duration: 4, instruction: 'Breathe in slowly...', scale: 1.15 },
+      { name: 'Hold', duration: 7, instruction: 'Hold...', scale: 1.15 },
+      { name: 'Exhale', duration: 8, instruction: 'Slowly breathe out...', scale: 1 }
+    ];
+    let round = 0, phaseIdx = 0, count = 0;
+    const totalRounds = 3;
+    const phaseEl = document.getElementById('bPhase');
+    const countEl = document.getElementById('bCount');
+    const instrEl = document.getElementById('bInstruction');
+    const roundsEl = document.getElementById('bRounds');
+    const circle = document.getElementById('bCircle');
+
+    function runPhase() {
+      if (round >= totalRounds) {
+        phaseEl.textContent = 'Done';
+        countEl.textContent = '✓';
+        instrEl.textContent = "Well done. You're ready.";
+        roundsEl.textContent = '';
+        const btn = document.getElementById('bStart');
+        btn.textContent = 'Continue';
+        btn.style.display = 'inline-block';
+        btn.onclick = closeBreathe;
+        return;
+      }
+      const phase = phases[phaseIdx];
+      count = phase.duration;
+      phaseEl.textContent = phase.name;
+      countEl.textContent = count;
+      instrEl.textContent = phase.instruction;
+      roundsEl.textContent = `Round ${round + 1} of ${totalRounds}`;
+      circle.style.transform = `scale(${phase.scale})`;
+      breathInterval = setInterval(() => {
+        count--;
+        countEl.textContent = count;
+        if (count <= 0) {
+          clearInterval(breathInterval);
+          phaseIdx++;
+          if (phaseIdx >= phases.length) { phaseIdx = 0; round++; }
+          setTimeout(runPhase, 300);
+        }
+      }, 1000);
+    }
+    runPhase();
+  }
+</script>
+</body>
+</html>
