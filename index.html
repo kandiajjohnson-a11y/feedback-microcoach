@@ -10,6 +10,7 @@
     :root {
       --red: #C0392B; --red-dark: #962d22; --red-light: #fdf1f0;
       --teal: #0f7b6c; --teal-light: #f0faf6;
+      --navy: #1a2744; --navy-light: #f0f2f8;
       --text: #1a1a1a; --text-muted: #6b6b6b; --text-light: #999;
       --bg: #faf9f7; --surface: #ffffff; --border: #e8e4df;
       --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
@@ -45,9 +46,11 @@
     .moment-card:active { transform: scale(0.98); }
     .moment-card.overwhelm { background: var(--teal-light); border-color: #a8dfd4; }
     .moment-card.feedback { background: var(--red-light); border-color: #f0c8c4; }
+    .moment-card.regulate { background: var(--navy-light); border-color: #c8cfe8; }
     .moment-icon { width: 52px; height: 52px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
     .overwhelm .moment-icon { background: var(--teal); }
     .feedback .moment-icon { background: var(--red); }
+    .regulate .moment-icon { background: var(--navy); }
     .moment-body { flex: 1; }
     .moment-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
     .moment-sub { font-size: 12px; color: var(--text-muted); line-height: 1.4; }
@@ -92,7 +95,8 @@
     .breath-start:hover { opacity: 0.88; }
     .breath-close {
       display: block; margin: 12px auto 0; font-size: 12px; color: var(--text-light);
-      background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; text-decoration: underline;
+      background: none; border: none; cursor: pointer;
+      font-family: 'DM Sans', sans-serif; text-decoration: underline;
     }
     .footer { text-align: center; font-size: 11px; color: var(--text-light); margin-top: 2rem; }
     @media (max-width: 600px) {
@@ -113,6 +117,10 @@
 
 <main>
   <div class="hero">
+    <img src="https://res.cloudinary.com/dgym7gyol/image/upload/q_auto/f_auto/v1778782800/Kandia_Johnson__Headshot_uxelxm.jpg"
+      alt="Coach K"
+      style="width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid #fff;box-shadow:0 2px 12px rgba(0,0,0,0.12);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto;" />
+    <div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:16px;">Kandia "Coach K" Johnson</div>
     <span class="quote-mark">"</span>
     <div class="quote">The only moment you can ever control is the moment you're in right now.</div>
     <div class="tagline">How can I support you today?</div>
@@ -137,6 +145,15 @@
       <div class="moment-body">
         <div class="moment-title">I need to give feedback</div>
         <div class="moment-sub">Prepare a difficult conversation</div>
+      </div>
+      <div class="moment-arrow">›</div>
+    </a>
+
+    <a href="/regulate" class="moment-card regulate">
+      <div class="moment-icon">⏸️</div>
+      <div class="moment-body">
+        <div class="moment-title">Regulate before I communicate</div>
+        <div class="moment-sub">Respond with clarity instead of reactivity</div>
       </div>
       <div class="moment-arrow">›</div>
     </a>
@@ -177,14 +194,12 @@
     modal.classList.add('active');
     modal.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
-
   function closeBreathe() {
     document.getElementById('breathe-modal').classList.remove('active');
     document.getElementById('breathe-card').style.display = 'block';
     if (breathInterval) clearInterval(breathInterval);
     resetBreath();
   }
-
   function resetBreath() {
     document.getElementById('bPhase').textContent = 'Ready';
     document.getElementById('bCount').textContent = '—';
@@ -194,9 +209,7 @@
     const btn = document.getElementById('bStart');
     if (btn) { btn.textContent = 'Start breathing'; btn.onclick = startBreath; btn.style.display = 'inline-block'; }
   }
-
   let breathInterval = null;
-
   function startBreath() {
     document.getElementById('bStart').style.display = 'none';
     const phases = [
@@ -211,7 +224,6 @@
     const instrEl = document.getElementById('bInstruction');
     const roundsEl = document.getElementById('bRounds');
     const circle = document.getElementById('bCircle');
-
     function runPhase() {
       if (round >= totalRounds) {
         phaseEl.textContent = 'Done';

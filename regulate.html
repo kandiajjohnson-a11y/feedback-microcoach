@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Regulate Before You Communicate | Coach K</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #1a2744; --navy-light: #f0f2f8; --navy-border: #c8cfe8;
+      --text: #1a1a1a; --text-muted: #6b6b6b; --text-light: #999;
+      --bg: #faf9f7; --surface: #ffffff; --border: #e8e4df;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+    }
+    html, body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem; height: 64px; display: flex; align-items: center;
+      justify-content: space-between; position: sticky; top: 0; z-index: 10;
+    }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .logo-mark {
+      width: 36px; height: 36px; border-radius: 10px; background: var(--navy);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 18px; color: #fff;
+    }
+    .header-title { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.2; }
+    .header-sub { font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; text-transform: uppercase; }
+    .back-btn {
+      font-size: 13px; color: var(--text-muted); background: none;
+      border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px;
+      cursor: pointer; text-decoration: none; font-family: 'DM Sans', sans-serif;
+      transition: all 0.15s;
+    }
+    .back-btn:hover { border-color: var(--navy); color: var(--navy); }
+    main { max-width: 560px; margin: 0 auto; padding: 2rem 1.25rem 3rem; }
+    .hero { text-align: center; padding: 1.5rem 0 2rem; }
+    .hero-icon { font-size: 36px; display: block; margin-bottom: 12px; }
+    .hero-title {
+      font-family: 'DM Serif Display', serif; font-size: 22px;
+      color: var(--text); margin-bottom: 8px; line-height: 1.4;
+    }
+    .hero-sub { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .audio-card {
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-top: 3px solid var(--navy); border-radius: 0 0 16px 16px;
+      padding: 22px 22px; margin-bottom: 16px; box-shadow: var(--shadow);
+    }
+    .audio-label { font-size: 10px; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .audio-title { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .audio-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; line-height: 1.5; }
+    audio {
+      width: 100%; border-radius: 8px; accent-color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .guide-btn {
+      display: flex; align-items: center; gap: 10px;
+      background: var(--navy-light); border: 0.5px solid var(--navy-border);
+      border-radius: 12px; padding: 14px 16px; text-decoration: none;
+      transition: all 0.15s; margin-bottom: 12px;
+    }
+    .guide-btn:hover { background: #e4e8f5; }
+    .guide-icon { font-size: 22px; flex-shrink: 0; }
+    .guide-text {}
+    .guide-title { font-size: 13px; font-weight: 500; color: var(--navy); }
+    .guide-sub { font-size: 11px; color: var(--text-muted); }
+    .guide-arrow { margin-left: auto; font-size: 18px; color: var(--text-light); }
+    .divider { height: 0.5px; background: var(--border); margin: 1.5rem 0; }
+    .ready-label { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 12px; }
+    .next-cards { display: flex; flex-direction: column; gap: 10px; }
+    .next-card {
+      display: flex; align-items: center; gap: 14px; padding: 14px 18px;
+      border-radius: 14px; border: 0.5px solid transparent;
+      text-decoration: none; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .next-card:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+    .next-card.overwhelm { background: #f0faf6; border-color: #a8dfd4; }
+    .next-card.feedback { background: #fdf1f0; border-color: #f0c8c4; }
+    .next-icon { width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .overwhelm .next-icon { background: #0f7b6c; }
+    .feedback .next-icon { background: #C0392B; }
+    .next-title { font-size: 13px; font-weight: 500; color: var(--text); }
+    .next-sub { font-size: 11px; color: var(--text-muted); }
+    .next-arrow { margin-left: auto; font-size: 18px; color: var(--text-light); }
+    .footer { text-align: center; font-size: 11px; color: var(--text-light); margin-top: 2rem; }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-left">
+    <div class="logo-mark">⏸️</div>
+    <div>
+      <div class="header-title">Regulate Before You Communicate</div>
+      <div class="header-sub">Kandid Conversations</div>
+    </div>
+  </div>
+  <a href="/" class="back-btn">← Home</a>
+</header>
+
+<main>
+  <div class="hero">
+    <span class="hero-icon">⏸️</span>
+    <div class="hero-title">Before you speak,<br>let's regulate first.</div>
+    <div class="hero-sub">Listen to Coach K walk you through the four steps that will help you show up with clarity, composure, and confidence.</div>
+  </div>
+
+  <div class="audio-card">
+    <div class="audio-label">Guided Audio — Coach K</div>
+    <div class="audio-title">The Show Up Anyway Mindset</div>
+    <div class="audio-desc">Pause · Breathe · Question · Reframe — your foundation for every conversation that matters.</div>
+    <audio controls>
+      <source src="https://res.cloudinary.com/dgym7gyol/video/upload/v1778782444/Show_Up_Anyway__Four_Regulating_Steps_Coach_K_App_ief41i.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+
+    <a href="https://res.cloudinary.com/dgym7gyol/image/upload/q_auto/f_auto/v1778782291/Show_Up_Anyway__One_Page_vfmqen.png" target="_blank" class="guide-btn">
+      <span class="guide-icon">📄</span>
+      <div class="guide-text">
+        <div class="guide-title">Get your regulation guide</div>
+        <div class="guide-sub">Save the Show Up Anyway one pager to your phone</div>
+      </div>
+      <span class="guide-arrow">›</span>
+    </a>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="ready-label">Ready to work through your moment?</div>
+
+  <div class="next-cards">
+    <a href="/overwhelm" class="next-card overwhelm">
+      <div class="next-icon">🌊</div>
+      <div>
+        <div class="next-title">I'm feeling overwhelmed</div>
+        <div class="next-sub">Clear your head and reset your focus</div>
+      </div>
+      <div class="next-arrow">›</div>
+    </a>
+
+    <a href="/feedback" class="next-card feedback">
+      <div class="next-icon">💬</div>
+      <div>
+        <div class="next-title">I need to give feedback</div>
+        <div class="next-sub">Prepare a difficult conversation</div>
+      </div>
+      <div class="next-arrow">›</div>
+    </a>
+  </div>
+
+  <div class="footer">Powered by Coach K's frameworks · Kandid Conversations Global LLC</div>
+</main>
+</body>
+</html>
