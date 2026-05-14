@@ -296,7 +296,7 @@
     </div>
   </div>
   <div style="display:flex;gap:8px;align-items:center">
-    <a href="/" class="nav-link">Feedback Coach</a>
+    <a href="/" class="nav-link">← Home</a>
     <button class="reset-btn" onclick="resetChat()">Start over</button>
   </div>
 </header>
@@ -551,6 +551,7 @@
     history = [];
     chat.innerHTML = '';
     if (breathInterval) clearInterval(breathInterval);
+    document.querySelector('.input-bar').style.display = 'none';
     init();
   }
 
@@ -572,22 +573,27 @@
     document.querySelector('.input-bar').style.display = 'none';
     const banner = document.createElement('div');
     banner.id = 'breathe-banner';
-    banner.className = 'breathe-banner';
-    banner.style.flexDirection = 'column';
-    banner.style.alignItems = 'flex-start';
-    banner.style.gap = '10px';
+    banner.style.cssText = 'background:#fff;border:0.5px solid #e8e4df;border-radius:14px;padding:20px;margin-bottom:4px;box-shadow:0 1px 3px rgba(0,0,0,0.06)';
     banner.innerHTML = `
-      <div class="breathe-left">
-        <div class="breathe-icon">🌬</div>
-        <div>
-          <div class="breathe-label">How can I support you?</div>
-          <div class="breathe-sub">Take a moment to regulate — choose what works for you</div>
-        </div>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;width:100%">
-        <button class="breathe-btn" onclick="showBreatheModal()" style="flex:1;min-width:120px">4-7-8 breathing</button>
-        <button class="breathe-btn" onclick="openAudio()" style="flex:1;min-width:120px">🎧 Guided audio (8 min)</button>
-        <button class="breathe-btn" onclick="skipBreathe()" style="flex:1;min-width:120px;border-color:#ddd;color:#999">Skip for now</button>
+      <div style="font-size:13px;font-weight:500;color:#1a1a1a;margin-bottom:4px">How can I support you?</div>
+      <div style="font-size:12px;color:#6b6b6b;margin-bottom:16px">Choose how you'd like to work through your overwhelm reset.</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button onclick="openAudio()" style="display:flex;align-items:center;gap:12px;background:#f0faf6;border:0.5px solid #a8dfd4;border-radius:12px;padding:14px 16px;cursor:pointer;font-family:inherit;text-align:left;width:100%">
+          <span style="font-size:22px;flex-shrink:0">🎧</span>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:#0f7b6c">Listen to guided audio</div>
+            <div style="font-size:11px;color:#6b6b6b">8-minute Coach K reset — then we chat</div>
+          </div>
+          <span style="margin-left:auto;color:#aaa;font-size:18px">›</span>
+        </button>
+        <button onclick="skipBreathe()" style="display:flex;align-items:center;gap:12px;background:#faf9f7;border:0.5px solid #e8e4df;border-radius:12px;padding:14px 16px;cursor:pointer;font-family:inherit;text-align:left;width:100%">
+          <span style="font-size:22px;flex-shrink:0">💬</span>
+          <div>
+            <div style="font-size:13px;font-weight:500;color:#1a1a1a">Walk me through it step by step</div>
+            <div style="font-size:11px;color:#6b6b6b">Chat with Coach K to reset and prioritize</div>
+          </div>
+          <span style="margin-left:auto;color:#aaa;font-size:18px">›</span>
+        </button>
       </div>`;
     chat.appendChild(banner);
   }
